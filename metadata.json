@@ -1,0 +1,8 @@
+{
+  "name": "Sparko Corp OS",
+  "description": "Sistem Operasi Enterprise untuk Perusahaan PLTS & Manpower Supply. Manajemen proyek, Gudang, SDM, Kalkulator AI, dan Komunikasi Terintegrasi.",
+  "requestFramePermissions": [
+    "microphone",
+    "camera"
+  ]
+}
