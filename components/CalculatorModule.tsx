@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { calculateSolarProject } from '../services/geminiService';
 import { Calculator, Zap, DollarSign, TrendingUp, CheckCircle, Loader2, BatteryCharging, Cable, Settings, Sun, Power } from 'lucide-react';
@@ -63,12 +62,12 @@ export const CalculatorModule: React.FC<CalculatorProps> = ({ inventory, plnRate
         <div className="p-6 h-full overflow-y-auto pb-20 bg-[#020617] text-slate-200">
             <div className="flex justify-between items-center mb-6">
                 <h2 className="text-2xl font-bold text-white flex items-center gap-2">
-                    <Calculator className="text-blue-500" />
+                    <Calculator className="text-orange-500" />
                     System Engineer
                 </h2>
                 <div className="flex bg-slate-900 rounded-lg p-1 border border-slate-800">
-                    <button onClick={() => setActiveTab('Cost')} className={`px-4 py-1.5 rounded-md text-sm font-medium transition ${activeTab === 'Cost' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:text-white'}`}>Cost Estimator</button>
-                    <button onClick={() => setActiveTab('Wiring')} className={`px-4 py-1.5 rounded-md text-sm font-medium transition ${activeTab === 'Wiring' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:text-white'}`}>Wiring & Sizing</button>
+                    <button onClick={() => setActiveTab('Cost')} className={`px-4 py-1.5 rounded-md text-sm font-medium transition ${activeTab === 'Cost' ? 'bg-orange-600 text-white' : 'text-slate-400 hover:text-white'}`}>Cost Estimator</button>
+                    <button onClick={() => setActiveTab('Wiring')} className={`px-4 py-1.5 rounded-md text-sm font-medium transition ${activeTab === 'Wiring' ? 'bg-orange-600 text-white' : 'text-slate-400 hover:text-white'}`}>Wiring & Sizing</button>
                 </div>
             </div>
 
@@ -85,7 +84,7 @@ export const CalculatorModule: React.FC<CalculatorProps> = ({ inventory, plnRate
                                     <button 
                                         key={type}
                                         onClick={() => setSystemType(type)}
-                                        className={`p-2 text-xs font-mono uppercase border rounded-lg transition ${systemType === type ? 'bg-blue-600 border-blue-500 text-white' : 'bg-slate-800 border-slate-700 text-slate-400 hover:bg-slate-700'}`}
+                                        className={`p-2 text-xs font-mono uppercase border rounded-lg transition ${systemType === type ? 'bg-purple-600 border-purple-500 text-white' : 'bg-slate-800 border-slate-700 text-slate-400 hover:bg-slate-700'}`}
                                     >
                                         {type}
                                     </button>
@@ -99,7 +98,7 @@ export const CalculatorModule: React.FC<CalculatorProps> = ({ inventory, plnRate
                                 type="number" 
                                 value={capacity}
                                 onChange={(e) => setCapacity(Number(e.target.value))}
-                                className="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white focus:border-blue-500 outline-none"
+                                className="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white focus:border-orange-500 outline-none"
                             />
                         </div>
 
@@ -133,7 +132,7 @@ export const CalculatorModule: React.FC<CalculatorProps> = ({ inventory, plnRate
                             <select 
                                 value={roofType}
                                 onChange={(e) => setRoofType(e.target.value)}
-                                className="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white focus:border-blue-500 outline-none"
+                                className="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white focus:border-orange-500 outline-none"
                             >
                                 <option value="Genteng Metal">Genteng Metal</option>
                                 <option value="Dak Beton">Dak Beton</option>
@@ -146,14 +145,14 @@ export const CalculatorModule: React.FC<CalculatorProps> = ({ inventory, plnRate
                         <div className="mb-6">
                              <div className="flex items-center justify-between text-xs text-slate-400 mb-2">
                                 <span>Ref. PLN Rate</span>
-                                <span className="text-yellow-500 font-mono">Rp {plnRate}/kWh</span>
+                                <span className="text-orange-500 font-mono">Rp {plnRate}/kWh</span>
                              </div>
                         </div>
 
                         <button 
                             onClick={handleCalculate}
                             disabled={loading}
-                            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 rounded-lg transition flex items-center justify-center gap-2 uppercase tracking-widest text-sm"
+                            className="w-full bg-gradient-to-r from-purple-600 to-orange-600 hover:from-purple-500 hover:to-orange-500 text-white font-medium py-3 rounded-lg transition flex items-center justify-center gap-2 uppercase tracking-widest text-sm shadow-lg shadow-purple-900/20"
                         >
                             {loading ? <Loader2 className="animate-spin" /> : <Zap size={18} />}
                             {loading ? 'CALCULATING SYSTEM...' : 'RUN ESTIMATION'}
@@ -164,15 +163,15 @@ export const CalculatorModule: React.FC<CalculatorProps> = ({ inventory, plnRate
                     <div className="space-y-4">
                         {result ? (
                             <>
-                                <div className="bg-gradient-to-br from-emerald-900 to-slate-900 border border-emerald-800 p-6 rounded-xl relative overflow-hidden">
+                                <div className="bg-gradient-to-br from-purple-900 to-slate-900 border border-purple-800 p-6 rounded-xl relative overflow-hidden">
                                     <div className="absolute top-0 right-0 p-4 opacity-10">
                                         <Zap size={100} />
                                     </div>
-                                    <h3 className="text-emerald-400 font-bold text-lg mb-1 uppercase tracking-wide">Total Estimate</h3>
+                                    <h3 className="text-purple-400 font-bold text-lg mb-1 uppercase tracking-wide">Total Estimate</h3>
                                     <p className="text-3xl font-bold text-white font-mono">Rp {result.systemPrice?.toLocaleString()}</p>
                                     <p className="text-sm text-slate-400 mt-1 font-mono">@ Rp {result.pricePerKwp?.toLocaleString()} / kWp</p>
                                     <div className="mt-4 flex gap-2">
-                                        <span className="text-[10px] bg-emerald-900/50 text-emerald-300 border border-emerald-700 px-2 py-1 rounded">{systemType}</span>
+                                        <span className="text-[10px] bg-purple-900/50 text-purple-300 border border-purple-700 px-2 py-1 rounded">{systemType}</span>
                                         <span className="text-[10px] bg-slate-800 text-slate-300 border border-slate-700 px-2 py-1 rounded">{capacity} kWp</span>
                                     </div>
                                 </div>
@@ -198,14 +197,14 @@ export const CalculatorModule: React.FC<CalculatorProps> = ({ inventory, plnRate
                                 <div className="grid grid-cols-2 gap-4">
                                     <div className="bg-slate-900 border border-slate-800 p-4 rounded-xl">
                                         <div className="flex items-center gap-2 text-slate-400 mb-2">
-                                            <TrendingUp size={16} className="text-blue-500" />
+                                            <TrendingUp size={16} className="text-purple-500" />
                                             <span className="text-xs uppercase">ROI (Years)</span>
                                         </div>
                                         <p className="text-xl font-bold text-white font-mono">{result.roiYears} Tahun</p>
                                     </div>
                                     <div className="bg-slate-900 border border-slate-800 p-4 rounded-xl">
                                         <div className="flex items-center gap-2 text-slate-400 mb-2">
-                                            <DollarSign size={16} className="text-yellow-500" />
+                                            <DollarSign size={16} className="text-orange-500" />
                                             <span className="text-xs uppercase">Saving / Month</span>
                                         </div>
                                         <p className="text-xl font-bold text-white font-mono">Rp {result.monthlySaving?.toLocaleString()}</p>
@@ -213,7 +212,7 @@ export const CalculatorModule: React.FC<CalculatorProps> = ({ inventory, plnRate
                                 </div>
 
                                 <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl">
-                                    <h4 className="font-semibold text-white mb-3 text-xs uppercase tracking-widest flex items-center gap-2"><CheckCircle size={14} className="text-emerald-500"/> Profitability Analysis</h4>
+                                    <h4 className="font-semibold text-white mb-3 text-xs uppercase tracking-widest flex items-center gap-2"><CheckCircle size={14} className="text-orange-500"/> Profitability Analysis</h4>
                                     <div className="space-y-3 font-mono">
                                         <div className="flex justify-between text-sm">
                                             <span className="text-slate-400">Material Cost</span>
@@ -224,11 +223,11 @@ export const CalculatorModule: React.FC<CalculatorProps> = ({ inventory, plnRate
                                             <span className="text-white">Rp {result.laborCost?.toLocaleString()}</span>
                                         </div>
                                         <div className="border-t border-slate-700 pt-2 flex justify-between font-bold">
-                                            <span className="text-emerald-400">Net Margin</span>
-                                            <span className="text-emerald-400">Rp {result.margin?.toLocaleString()}</span>
+                                            <span className="text-orange-400">Net Margin</span>
+                                            <span className="text-orange-400">Rp {result.margin?.toLocaleString()}</span>
                                         </div>
                                     </div>
-                                    <div className="mt-4 p-3 bg-slate-800 rounded-lg text-xs text-slate-300 italic font-sans leading-relaxed border-l-2 border-blue-500">
+                                    <div className="mt-4 p-3 bg-slate-800 rounded-lg text-xs text-slate-300 italic font-sans leading-relaxed border-l-2 border-purple-500">
                                         "{result.analysis}"
                                     </div>
                                 </div>
@@ -269,16 +268,16 @@ export const CalculatorModule: React.FC<CalculatorProps> = ({ inventory, plnRate
                                 </select>
                             </div>
                         </div>
-                        <button onClick={handleWiringCalculate} className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-3 rounded-lg uppercase tracking-widest text-sm flex items-center justify-center gap-2">
+                        <button onClick={handleWiringCalculate} className="w-full bg-orange-600 hover:bg-orange-700 text-white font-medium py-3 rounded-lg uppercase tracking-widest text-sm flex items-center justify-center gap-2">
                              <Settings size={18} /> Run Sizing
                         </button>
                     </div>
 
                     <div className="space-y-4">
                         {wiringResult ? (
-                            <div className="glass-panel p-6 rounded-xl border border-blue-500/30">
+                            <div className="glass-panel p-6 rounded-xl border border-purple-500/30">
                                 <h3 className="text-lg font-bold text-white mb-6 flex items-center gap-2">
-                                    <Cable className="text-blue-400" /> Configuration
+                                    <Cable className="text-purple-400" /> Configuration
                                 </h3>
                                 <div className="grid grid-cols-2 gap-6 mb-6">
                                     <div>
@@ -293,8 +292,8 @@ export const CalculatorModule: React.FC<CalculatorProps> = ({ inventory, plnRate
                                 <div className="bg-slate-800/50 p-4 rounded-lg mb-4">
                                     <p className="text-xs text-slate-500 uppercase mb-2">String Config</p>
                                     <div className="flex items-center gap-3">
-                                        <div className="w-2 h-2 rounded-full bg-emerald-500"></div>
-                                        <p className="text-emerald-400 font-mono text-lg">{wiringResult.stringConfig}</p>
+                                        <div className="w-2 h-2 rounded-full bg-orange-500"></div>
+                                        <p className="text-orange-400 font-mono text-lg">{wiringResult.stringConfig}</p>
                                     </div>
                                 </div>
                                 <div className="bg-slate-800/50 p-4 rounded-lg">

@@ -9,8 +9,8 @@ const Card = ({ children, className = '' }: any) => <div className={`glass-panel
 const Badge = ({ children, color = 'slate' }: any) => {
     const colors: any = {
         slate: 'bg-slate-800 text-slate-300 border-slate-700',
-        blue: 'bg-blue-900/30 text-blue-300 border-blue-800',
-        emerald: 'bg-emerald-900/30 text-emerald-300 border-emerald-800',
+        blue: 'bg-purple-900/30 text-purple-300 border-purple-800',
+        emerald: 'bg-orange-900/30 text-orange-300 border-orange-800',
         yellow: 'bg-yellow-900/30 text-yellow-300 border-yellow-800',
         red: 'bg-red-900/30 text-red-300 border-red-800',
     };
@@ -167,17 +167,17 @@ export const ManpowerModule: React.FC<ManpowerProps> = ({ manpowerList, setManpo
   };
 
   return (
-    <div className="p-6 h-full overflow-y-auto pb-20 bg-[#020617] text-slate-200">
+    <div className="p-6 h-full overflow-y-auto pb-20 bg-[#05010a] text-slate-200">
       <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
         <div>
             <h2 className="text-2xl font-bold text-white flex items-center gap-3">
-                <div className="p-2 bg-blue-500/20 rounded-lg text-blue-400"><Users size={24}/></div>
+                <div className="p-2 bg-purple-500/20 rounded-lg text-purple-400"><Users size={24}/></div>
                 Human Resources (A-Z)
             </h2>
             <div className="flex gap-4 text-sm mt-2 text-slate-400 font-medium overflow-x-auto">
                 {['List', 'Profile', 'Payroll', 'SkillMatrix'].map(mode => (
                     <button key={mode} onClick={() => setViewMode(mode as any)} 
-                        className={`hover:text-white transition whitespace-nowrap ${viewMode === mode ? 'text-blue-400 border-b-2 border-blue-400' : ''}`}>
+                        className={`hover:text-white transition whitespace-nowrap ${viewMode === mode ? 'text-purple-400 border-b-2 border-purple-400' : ''}`}>
                         {mode.replace(/([A-Z])/g, ' $1').trim()}
                     </button>
                 ))}
@@ -187,9 +187,9 @@ export const ManpowerModule: React.FC<ManpowerProps> = ({ manpowerList, setManpo
             <input 
                 type="text" placeholder="Search personnel..." 
                 value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} 
-                className="glass-input px-4 py-2 rounded-lg text-sm w-48 md:w-64" 
+                className="glass-input px-4 py-2 rounded-lg text-sm w-48 md:w-64 border-purple-900/50" 
             />
-            <button onClick={() => setShowAddModal(true)} className="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2">
+            <button onClick={() => setShowAddModal(true)} className="bg-purple-600 hover:bg-purple-500 text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2">
                 <Plus size={16} /> Recruit
             </button>
         </div>
@@ -198,34 +198,34 @@ export const ManpowerModule: React.FC<ManpowerProps> = ({ manpowerList, setManpo
       {viewMode === 'List' && (
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
             {filteredList.map((worker) => (
-              <Card key={worker.id} className="relative group hover:border-blue-500/50 transition duration-300">
+              <Card key={worker.id} className="relative group hover:border-purple-500/50 transition duration-300">
                 <div className="flex justify-between items-start mb-4 cursor-pointer" onClick={() => { setSelectedWorkerId(worker.id); setViewMode('Profile'); }}>
                     <div className="flex gap-4">
-                        <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-xl font-bold ${worker.status === 'On-Site' ? 'bg-yellow-500/20 text-yellow-500' : 'bg-slate-800 text-slate-400'}`}>
+                        <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-xl font-bold ${worker.status === 'On-Site' ? 'bg-orange-500/20 text-orange-500' : 'bg-slate-800 text-slate-400'}`}>
                             {worker.name.charAt(0)}
                         </div>
                         <div>
-                            <h4 className="font-bold text-white text-lg group-hover:text-blue-400 transition">{worker.name}</h4>
+                            <h4 className="font-bold text-white text-lg group-hover:text-purple-400 transition">{worker.name}</h4>
                             <p className="text-slate-400 text-sm">{worker.role}</p>
                         </div>
                     </div>
-                    <Badge color={worker.status === 'Available' ? 'emerald' : worker.status === 'On-Site' ? 'yellow' : 'red'}>{worker.status}</Badge>
+                    <Badge color={worker.status === 'Available' ? 'blue' : worker.status === 'On-Site' ? 'emerald' : 'red'}>{worker.status}</Badge>
                 </div>
                 
                 <div className="space-y-3">
                     <div className="flex justify-between text-sm">
                         <span className="text-slate-500">Performance</span>
-                        <span className="text-emerald-400 font-mono">{worker.performanceScore}%</span>
+                        <span className="text-orange-400 font-mono">{worker.performanceScore}%</span>
                     </div>
                     <div className="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
-                        <div className="bg-emerald-500 h-full" style={{width: `${worker.performanceScore}%`}}></div>
+                        <div className="bg-orange-500 h-full" style={{width: `${worker.performanceScore}%`}}></div>
                     </div>
                     <div className="flex gap-2 flex-wrap">
                         {worker.skills.slice(0, 3).map(s => <span key={s} className="text-[10px] bg-slate-800 px-2 py-1 rounded text-slate-300">{s}</span>)}
                     </div>
                     <div className="pt-2 border-t border-slate-800 flex justify-between items-center text-xs text-slate-500">
                         <span>Joined: {new Date(worker.joinDate || Date.now()).toLocaleDateString()}</span>
-                        <button onClick={() => { setSelectedWorkerId(worker.id); setViewMode('Profile'); }} className="text-blue-400 hover:underline">View Profile</button>
+                        <button onClick={() => { setSelectedWorkerId(worker.id); setViewMode('Profile'); }} className="text-purple-400 hover:underline">View Profile</button>
                     </div>
                 </div>
               </Card>
@@ -242,7 +242,7 @@ export const ManpowerModule: React.FC<ManpowerProps> = ({ manpowerList, setManpo
                           {selectedWorker.name.charAt(0)}
                       </div>
                       <h2 className="text-2xl font-bold text-white">{selectedWorker.name}</h2>
-                      <p className="text-blue-400">{selectedWorker.role}</p>
+                      <p className="text-purple-400">{selectedWorker.role}</p>
                       <div className="mt-2"><Badge>{selectedWorker.status}</Badge></div>
                   </div>
                   <div className="space-y-4 text-sm">
@@ -278,7 +278,7 @@ export const ManpowerModule: React.FC<ManpowerProps> = ({ manpowerList, setManpo
                               const dateStr = `${new Date().getFullYear()}-${String(new Date().getMonth()+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
                               const record = selectedWorker.attendanceHistory?.find(h => h.date === dateStr);
                               let colorClass = 'bg-slate-800 text-slate-500 hover:bg-slate-700'; // Default
-                              if (record?.status === 'Present') colorClass = 'bg-emerald-600 text-white';
+                              if (record?.status === 'Present') colorClass = 'bg-purple-600 text-white';
                               if (record?.status === 'Absent') colorClass = 'bg-red-600 text-white';
                               if (record?.status === 'Sick') colorClass = 'bg-yellow-600 text-white';
 
@@ -295,7 +295,7 @@ export const ManpowerModule: React.FC<ManpowerProps> = ({ manpowerList, setManpo
                           })}
                       </div>
                       <div className="flex gap-4 mt-4 text-xs text-slate-400">
-                          <span className="flex items-center gap-1"><div className="w-2 h-2 bg-emerald-600 rounded"></div> Present</span>
+                          <span className="flex items-center gap-1"><div className="w-2 h-2 bg-purple-600 rounded"></div> Present</span>
                           <span className="flex items-center gap-1"><div className="w-2 h-2 bg-red-600 rounded"></div> Absent</span>
                           <span className="flex items-center gap-1"><div className="w-2 h-2 bg-yellow-600 rounded"></div> Sick</span>
                       </div>
@@ -305,14 +305,14 @@ export const ManpowerModule: React.FC<ManpowerProps> = ({ manpowerList, setManpo
                       <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2"><FileCheck size={18}/> Document Vault</h3>
                       <div className="grid grid-cols-2 gap-4">
                           <input type="file" ref={docInputRef} className="hidden" onChange={handleDocUpload} />
-                          <div onClick={() => docInputRef.current?.click()} className="border border-dashed border-slate-700 rounded-lg p-4 flex flex-col items-center justify-center text-slate-500 hover:border-blue-500 hover:text-blue-500 transition cursor-pointer">
+                          <div onClick={() => docInputRef.current?.click()} className="border border-dashed border-slate-700 rounded-lg p-4 flex flex-col items-center justify-center text-slate-500 hover:border-purple-500 hover:text-purple-500 transition cursor-pointer">
                               <Plus size={24} />
                               <span className="text-xs mt-2">Upload KTP/Cert</span>
                           </div>
                           {selectedWorker.documents?.map(doc => (
                               <div key={doc.id} className="bg-slate-900 border border-slate-800 p-3 rounded-lg flex items-center justify-between group">
                                   <div className="flex items-center gap-2 overflow-hidden">
-                                      <FileText size={16} className="text-blue-400 shrink-0"/>
+                                      <FileText size={16} className="text-purple-400 shrink-0"/>
                                       <span className="text-sm text-white truncate" title={doc.name}>{doc.name}</span>
                                   </div>
                                   <button onClick={() => handleDeleteDoc(doc.id)} className="text-slate-500 hover:text-red-400"><X size={14}/></button>
@@ -326,13 +326,13 @@ export const ManpowerModule: React.FC<ManpowerProps> = ({ manpowerList, setManpo
           <div className="flex flex-col items-center justify-center h-96 text-slate-500">
               <UserCheck size={48} className="mb-4 opacity-20"/>
               <p>Please select a personnel from the list.</p>
-              <button onClick={() => setViewMode('List')} className="mt-4 text-blue-400 hover:underline">Back to List</button>
+              <button onClick={() => setViewMode('List')} className="mt-4 text-purple-400 hover:underline">Back to List</button>
           </div>
       ) : null}
 
       {viewMode === 'Payroll' && (
           <Card>
-              <h3 className="text-lg font-bold text-white mb-6 flex items-center gap-2"><DollarSign size={18} className="text-emerald-400"/> Payroll Estimation (This Month)</h3>
+              <h3 className="text-lg font-bold text-white mb-6 flex items-center gap-2"><DollarSign size={18} className="text-orange-400"/> Payroll Estimation (This Month)</h3>
               <div className="overflow-x-auto">
                   <table className="w-full text-left">
                       <thead className="bg-slate-900 text-slate-500 text-xs uppercase">
@@ -349,9 +349,9 @@ export const ManpowerModule: React.FC<ManpowerProps> = ({ manpowerList, setManpo
                               <tr key={m.id} className="hover:bg-slate-800/30">
                                   <td className="p-4 font-bold text-white">{m.name}</td>
                                   <td className="p-4 text-slate-400">Rp {m.dailyRate.toLocaleString()}</td>
-                                  <td className="p-4 text-blue-400 font-bold">{m.attendanceDaysThisMonth} Days</td>
+                                  <td className="p-4 text-purple-400 font-bold">{m.attendanceDaysThisMonth} Days</td>
                                   <td className="p-4 text-slate-500">-</td>
-                                  <td className="p-4 text-right font-mono font-bold text-emerald-400">
+                                  <td className="p-4 text-right font-mono font-bold text-orange-400">
                                       Rp {m.totalEarnedThisMonth.toLocaleString()}
                                   </td>
                               </tr>
@@ -372,7 +372,7 @@ export const ManpowerModule: React.FC<ManpowerProps> = ({ manpowerList, setManpo
                                 <PolarGrid stroke="#334155" />
                                 <PolarAngleAxis dataKey="skill" stroke="#94a3b8" />
                                 <PolarRadiusAxis angle={30} domain={[0, 'auto']} stroke="#475569" />
-                                <Radar name="Staff Count" dataKey="count" stroke="#3b82f6" fill="#3b82f6" fillOpacity={0.5} />
+                                <Radar name="Staff Count" dataKey="count" stroke="#9333ea" fill="#9333ea" fillOpacity={0.5} />
                                 <Tooltip contentStyle={{backgroundColor: '#0f172a', borderColor: '#334155', borderRadius: '8px', color: '#fff'}} />
                             </RadarChart>
                         </ResponsiveContainer>
@@ -387,7 +387,7 @@ export const ManpowerModule: React.FC<ManpowerProps> = ({ manpowerList, setManpo
                                 <XAxis dataKey="range" stroke="#94a3b8" fontSize={12} />
                                 <YAxis stroke="#94a3b8" fontSize={12} />
                                 <Tooltip cursor={{fill: 'transparent'}} contentStyle={{backgroundColor: '#0f172a', borderColor: '#334155'}} />
-                                <Bar dataKey="count" fill="#10b981" radius={[4, 4, 0, 0]} name="Personnel" />
+                                <Bar dataKey="count" fill="#f97316" radius={[4, 4, 0, 0]} name="Personnel" />
                              </BarChart>
                         </ResponsiveContainer>
                    </div>
@@ -423,7 +423,7 @@ export const ManpowerModule: React.FC<ManpowerProps> = ({ manpowerList, setManpo
                             <h4 className="text-xs font-bold text-white uppercase mb-3">Quick Actions</h4>
                             <div className="flex gap-2">
                                 <button onClick={() => { setShowAddModal(true); setNewWorker(p => ({...p, role: 'Safety Officer'})) }} className="text-xs bg-red-900/30 text-red-300 px-3 py-2 rounded hover:bg-red-900/50">Recruit Safety Officer</button>
-                                <button onClick={() => { setShowAddModal(true); setNewWorker(p => ({...p, role: 'Electrician'})) }} className="text-xs bg-blue-900/30 text-blue-300 px-3 py-2 rounded hover:bg-blue-900/50">Recruit Electrician</button>
+                                <button onClick={() => { setShowAddModal(true); setNewWorker(p => ({...p, role: 'Electrician'})) }} className="text-xs bg-purple-900/30 text-purple-300 px-3 py-2 rounded hover:bg-purple-900/50">Recruit Electrician</button>
                             </div>
                         </div>
                     </div>
@@ -444,7 +444,7 @@ export const ManpowerModule: React.FC<ManpowerProps> = ({ manpowerList, setManpo
                   <input className="w-full glass-input p-3 rounded-lg mb-4" type="number" placeholder="Daily Rate (IDR)" value={newWorker.dailyRate} onChange={e => setNewWorker({...newWorker, dailyRate: Number(e.target.value)})} />
                   <div className="flex justify-end gap-4">
                       <button onClick={() => setShowAddModal(false)} className="text-slate-400">Cancel</button>
-                      <button onClick={handleAddWorker} className="bg-blue-600 px-6 py-2 rounded-lg text-white font-medium">Hire</button>
+                      <button onClick={handleAddWorker} className="bg-purple-600 px-6 py-2 rounded-lg text-white font-medium">Hire</button>
                   </div>
               </div>
           </div>
@@ -560,13 +560,13 @@ export const ProjectModule: React.FC<{projects: Project[], setProjects: React.Di
     const filteredProjects = projectFilter === 'All' ? projects : projects.filter(p => p.projectType === projectFilter);
 
     return (
-        <div className="p-6 h-full overflow-y-auto pb-20 bg-[#020617] text-slate-200">
+        <div className="p-6 h-full overflow-y-auto pb-20 bg-[#05010a] text-slate-200">
              <div className="flex justify-between items-center mb-8">
                 <h2 className="text-2xl font-bold text-white flex items-center gap-3">
-                    <div className="p-2 bg-emerald-500/20 rounded-lg text-emerald-400"><Briefcase size={24}/></div>
+                    <div className="p-2 bg-orange-500/20 rounded-lg text-orange-400"><Briefcase size={24}/></div>
                     Project Operations
                 </h2>
-                <button onClick={() => setShowCreateModal(true)} className="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2">
+                <button onClick={() => setShowCreateModal(true)} className="bg-orange-600 hover:bg-orange-500 text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2">
                     <Plus size={16} /> New Project
                 </button>
             </div>
@@ -589,10 +589,10 @@ export const ProjectModule: React.FC<{projects: Project[], setProjects: React.Di
                     <div className="overflow-y-auto pr-2 flex-1 space-y-4">
                         {filteredProjects.map(p => (
                             <div key={p.id} onClick={() => { setSelectedProject(p); setEfficiencyResult(null); }} 
-                                className={`p-4 rounded-xl cursor-pointer transition border ${selectedProject?.id === p.id ? 'bg-emerald-900/20 border-emerald-500/50' : 'glass-panel border-transparent hover:border-emerald-500/30'}`}>
+                                className={`p-4 rounded-xl cursor-pointer transition border ${selectedProject?.id === p.id ? 'bg-orange-900/20 border-orange-500/50' : 'glass-panel border-transparent hover:border-orange-500/30'}`}>
                                 <div className="flex justify-between mb-2">
                                     <span className="font-bold text-white">{p.clientName}</span>
-                                    <Badge color={p.status === 'Konstruksi' ? 'blue' : 'slate'}>{p.status}</Badge>
+                                    <Badge color={p.status === 'Konstruksi' ? 'emerald' : 'slate'}>{p.status}</Badge>
                                 </div>
                                 <div className="flex items-center gap-2 text-xs text-slate-400 mb-3">
                                     <MapPin size={12}/> {p.location} • {p.capacityKWp} kWp
@@ -601,7 +601,7 @@ export const ProjectModule: React.FC<{projects: Project[], setProjects: React.Di
                                      <span className="bg-slate-800 px-1.5 rounded">{p.projectType}</span>
                                 </div>
                                 <div className="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
-                                    <div className="bg-emerald-500 h-full transition-all" style={{width: `${p.progress}%`}}></div>
+                                    <div className="bg-orange-500 h-full transition-all" style={{width: `${p.progress}%`}}></div>
                                 </div>
                             </div>
                         ))}
@@ -619,7 +619,7 @@ export const ProjectModule: React.FC<{projects: Project[], setProjects: React.Di
                                     <div className="flex gap-4 text-sm text-slate-400">
                                         <span className="flex items-center gap-1"><MapPin size={14}/> {selectedProject.location}</span>
                                         <span className="flex items-center gap-1"><Zap size={14}/> {selectedProject.capacityKWp} kWp</span>
-                                        <span className="flex items-center gap-1 text-emerald-400 font-mono">Rp {selectedProject.financials.agreedValue.toLocaleString()}</span>
+                                        <span className="flex items-center gap-1 text-orange-400 font-mono">Rp {selectedProject.financials.agreedValue.toLocaleString()}</span>
                                     </div>
                                 </div>
                                 <div className="text-right">
@@ -627,7 +627,7 @@ export const ProjectModule: React.FC<{projects: Project[], setProjects: React.Di
                                     <select 
                                         value={selectedProject.status} 
                                         onChange={(e) => handleStatusUpdate(e.target.value)}
-                                        className="bg-slate-900 border border-slate-700 text-white rounded px-2 py-1 text-sm outline-none focus:border-blue-500"
+                                        className="bg-slate-900 border border-slate-700 text-white rounded px-2 py-1 text-sm outline-none focus:border-orange-500"
                                     >
                                         {Object.values(ProjectStatus).map(s => (
                                             <option key={s} value={s}>{s}</option>
@@ -649,7 +649,7 @@ export const ProjectModule: React.FC<{projects: Project[], setProjects: React.Di
                                         {selectedProject.schedule.map((task, i) => (
                                             <div key={i} className="flex flex-col p-2 hover:bg-slate-800 rounded group">
                                                 <div className="flex items-center gap-3">
-                                                    <div className={`w-2 h-2 rounded-full ${task.status === 'Completed' ? 'bg-emerald-500' : 'bg-slate-600'}`}></div>
+                                                    <div className={`w-2 h-2 rounded-full ${task.status === 'Completed' ? 'bg-orange-500' : 'bg-slate-600'}`}></div>
                                                     <span className="text-xs text-slate-300 flex-1">{task.name}</span>
                                                     <span className="text-[10px] text-slate-500 font-mono">W{task.weekStart}</span>
                                                 </div>
@@ -694,7 +694,7 @@ export const ProjectModule: React.FC<{projects: Project[], setProjects: React.Di
                                                 )}
                                                 {selectedProject.riskAssessment.mitigationSuggestions && (
                                                     <div className="text-xs">
-                                                        <span className="font-bold text-emerald-400 uppercase text-[10px]">Mitigation Plans:</span>
+                                                        <span className="font-bold text-orange-400 uppercase text-[10px]">Mitigation Plans:</span>
                                                         <ul className="list-disc pl-4 text-slate-400 mt-1 space-y-1">
                                                             {selectedProject.riskAssessment.mitigationSuggestions.map((m, i) => <li key={i}>{m}</li>)}
                                                         </ul>
@@ -709,16 +709,16 @@ export const ProjectModule: React.FC<{projects: Project[], setProjects: React.Di
                                     <div className="bg-slate-900/50 p-4 rounded-xl border border-slate-700">
                                         <h4 className="text-sm font-bold text-slate-300 mb-4 flex items-center gap-2"><Paperclip size={16}/> Project Plan & Documents</h4>
                                         {!selectedProject.projectPlan ? (
-                                            <div className="text-center py-4 border border-dashed border-slate-700 rounded text-slate-500 hover:border-emerald-500 cursor-pointer relative">
+                                            <div className="text-center py-4 border border-dashed border-slate-700 rounded text-slate-500 hover:border-orange-500 cursor-pointer relative">
                                                 <input type="file" onChange={handleFileUpload} className="absolute inset-0 opacity-0 cursor-pointer" accept=".pdf,.doc,.docx" />
                                                 <p className="text-xs">Upload PDF/DOC Plan</p>
                                             </div>
                                         ) : (
                                             <div className="space-y-3">
-                                                <div className="flex items-center gap-2 text-xs text-emerald-400">
+                                                <div className="flex items-center gap-2 text-xs text-orange-400">
                                                     <FileCheck size={14}/> <span>Plan Uploaded</span>
                                                 </div>
-                                                <button onClick={handleAnalyzePlan} disabled={analyzingPlan} className="w-full bg-emerald-900/30 text-emerald-300 border border-emerald-700 rounded px-3 py-2 text-xs flex items-center justify-center gap-2">
+                                                <button onClick={handleAnalyzePlan} disabled={analyzingPlan} className="w-full bg-orange-900/30 text-orange-300 border border-orange-700 rounded px-3 py-2 text-xs flex items-center justify-center gap-2">
                                                     <Sparkles size={12}/> {analyzingPlan ? 'Analyzing...' : 'Analyze Plan'}
                                                 </button>
                                                 {selectedProject.planAnalysis && (
@@ -743,13 +743,13 @@ export const ProjectModule: React.FC<{projects: Project[], setProjects: React.Di
                                     />
                                     <div className="text-right text-[10px] text-slate-500 mt-1 italic">Saved to LocalDB automatically.</div>
                                 </div>
-                                <div className="glass-panel p-4 rounded-xl border border-blue-900/30">
+                                <div className="glass-panel p-4 rounded-xl border border-purple-900/30">
                                      <div className="flex justify-between items-center mb-4">
-                                        <h4 className="text-sm font-bold text-white flex items-center gap-2"><Calculator size={16} className="text-blue-500"/> Efficiency & Resourcing</h4>
+                                        <h4 className="text-sm font-bold text-white flex items-center gap-2"><Calculator size={16} className="text-purple-500"/> Efficiency & Resourcing</h4>
                                         <button 
                                             onClick={handleCalculateEfficiency} 
                                             disabled={isCalculatingEff}
-                                            className="text-[10px] bg-blue-600 hover:bg-blue-500 text-white px-3 py-1 rounded"
+                                            className="text-[10px] bg-purple-600 hover:bg-purple-500 text-white px-3 py-1 rounded"
                                         >
                                             {isCalculatingEff ? 'Calculating...' : 'Calculate Efficiency'}
                                         </button>
@@ -768,9 +768,9 @@ export const ProjectModule: React.FC<{projects: Project[], setProjects: React.Di
                                              </div>
                                              <div className="bg-slate-900 p-2 rounded">
                                                   <div className="text-[10px] text-slate-500 uppercase">Benchmark Cost / kWp</div>
-                                                  <div className="text-sm font-bold text-emerald-400 font-mono">Rp {efficiencyResult.costPerKwp?.toLocaleString()}</div>
+                                                  <div className="text-sm font-bold text-orange-400 font-mono">Rp {efficiencyResult.costPerKwp?.toLocaleString()}</div>
                                              </div>
-                                             <p className="text-[10px] text-slate-400 italic border-l-2 border-blue-500 pl-2">
+                                             <p className="text-[10px] text-slate-400 italic border-l-2 border-purple-500 pl-2">
                                                  "{efficiencyResult.analysis}"
                                              </p>
                                          </div>
@@ -792,9 +792,9 @@ export const ProjectModule: React.FC<{projects: Project[], setProjects: React.Di
             {/* CREATE PROJECT MODAL */}
             {showCreateModal && (
                 <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50">
-                    <div className="glass-panel p-8 rounded-2xl w-full max-w-lg border border-emerald-900/50">
+                    <div className="glass-panel p-8 rounded-2xl w-full max-w-lg border border-orange-900/50">
                         <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
-                            <Plus className="text-emerald-500"/> Initiate New Project
+                            <Plus className="text-orange-500"/> Initiate New Project
                         </h3>
                         <div className="space-y-4">
                             <div>
@@ -827,7 +827,7 @@ export const ProjectModule: React.FC<{projects: Project[], setProjects: React.Di
                         </div>
                         <div className="flex justify-end gap-4 mt-8">
                             <button onClick={() => setShowCreateModal(false)} className="text-slate-400 hover:text-white text-sm">Cancel</button>
-                            <button onClick={handleCreateProject} className="bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-2 rounded-lg text-sm font-medium">Create Project</button>
+                            <button onClick={handleCreateProject} className="bg-orange-600 hover:bg-orange-500 text-white px-6 py-2 rounded-lg text-sm font-medium">Create Project</button>
                         </div>
                     </div>
                 </div>
@@ -873,7 +873,7 @@ export const NegotiationModule: React.FC<{projects: Project[]}> = ({ projects })
     };
 
     return (
-        <div className="p-6 h-full overflow-y-auto pb-20 bg-[#020617] text-slate-200">
+        <div className="p-6 h-full overflow-y-auto pb-20 bg-[#05010a] text-slate-200">
              <h2 className="text-2xl font-bold text-white flex items-center gap-3 mb-6">
                 <div className="p-2 bg-purple-500/20 rounded-lg text-purple-400"><Zap size={24}/></div>
                 Negotiation Command Center
@@ -924,7 +924,7 @@ export const NegotiationModule: React.FC<{projects: Project[]}> = ({ projects })
                     <div className="h-80 bg-slate-900/50 rounded-xl p-4 overflow-y-auto space-y-3 mb-4 border border-slate-700">
                         {simMessages.map((m, i) => (
                             <div key={i} className={`flex ${m.sender === 'Me' ? 'justify-end' : 'justify-start'}`}>
-                                <div className={`max-w-[80%] p-3 rounded-lg text-sm ${m.sender === 'Me' ? 'bg-blue-600 text-white' : 'bg-slate-700 text-slate-300'}`}>
+                                <div className={`max-w-[80%] p-3 rounded-lg text-sm ${m.sender === 'Me' ? 'bg-purple-600 text-white' : 'bg-slate-700 text-slate-300'}`}>
                                     <div className="text-[10px] opacity-50 mb-1">{m.sender}</div>
                                     {m.text}
                                 </div>
@@ -936,7 +936,7 @@ export const NegotiationModule: React.FC<{projects: Project[]}> = ({ projects })
                             value={simInput} onChange={e => setSimInput(e.target.value)} onKeyPress={e => e.key === 'Enter' && handleSimSend()}
                             className="flex-1 glass-input p-3 rounded-lg text-sm" placeholder="Type your counter-offer..."
                         />
-                        <button onClick={handleSimSend} className="bg-blue-600 p-3 rounded-lg text-white"><Send size={18}/></button>
+                        <button onClick={handleSimSend} className="bg-purple-600 p-3 rounded-lg text-white"><Send size={18}/></button>
                     </div>
                 </Card>
                 )}

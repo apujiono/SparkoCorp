@@ -1,4 +1,3 @@
-
 import React, { useState, useRef } from 'react';
 import { StorageFile } from '../types';
 import { Cloud, FileText, Image as ImageIcon, Upload, Folder, Trash2, Download, AlertCircle, ArrowUpDown } from 'lucide-react';
@@ -93,11 +92,11 @@ export const StorageModule: React.FC<StorageProps> = ({ storage, setStorage }) =
     });
 
     return (
-        <div className="p-6 h-full overflow-y-auto pb-20 bg-black text-slate-200">
+        <div className="p-6 h-full overflow-y-auto pb-20 bg-[#05010a] text-slate-200">
             <div className="flex justify-between items-center mb-6 border-b border-slate-800 pb-4">
                 <div>
                     <h2 className="text-2xl font-bold text-white flex items-center gap-2 font-mono">
-                        <Cloud className="text-blue-500" />
+                        <Cloud className="text-orange-500" />
                         SPARKO DATA VAULT
                     </h2>
                     <p className="text-[10px] text-slate-500 font-mono mt-1 uppercase">Local Secure Browser Storage • Max 5MB/File</p>
@@ -114,7 +113,7 @@ export const StorageModule: React.FC<StorageProps> = ({ storage, setStorage }) =
                     <button 
                         onClick={() => fileInputRef.current?.click()}
                         disabled={uploading}
-                        className="bg-blue-900/40 hover:bg-blue-800 border border-blue-600 text-blue-200 px-4 py-2 rounded-sm flex items-center gap-2 text-xs transition uppercase font-mono tracking-wider"
+                        className="bg-purple-900/40 hover:bg-purple-800 border border-purple-600 text-purple-200 px-4 py-2 rounded-sm flex items-center gap-2 text-xs transition uppercase font-mono tracking-wider"
                     >
                         <Upload size={14} className={uploading ? "animate-bounce" : ""} />
                         {uploading ? `${progress}%` : 'UPLOAD'}
@@ -124,7 +123,7 @@ export const StorageModule: React.FC<StorageProps> = ({ storage, setStorage }) =
 
             {uploading && (
                 <div className="w-full bg-slate-900 h-2 mb-6 rounded-full overflow-hidden border border-slate-800">
-                    <div className="bg-blue-500 h-full transition-all duration-300" style={{width: `${progress}%`}}></div>
+                    <div className="bg-purple-500 h-full transition-all duration-300" style={{width: `${progress}%`}}></div>
                 </div>
             )}
 
@@ -136,8 +135,8 @@ export const StorageModule: React.FC<StorageProps> = ({ storage, setStorage }) =
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 font-mono">
                 {['Documents', 'Images', 'Contracts', 'Site Plans'].map(folder => (
-                    <div key={folder} className="bg-slate-900 border border-slate-800 p-4 rounded-sm flex items-center gap-3 hover:border-blue-500 cursor-pointer transition group">
-                        <Folder className="text-yellow-500 group-hover:text-yellow-400" size={20} />
+                    <div key={folder} className="bg-slate-900 border border-slate-800 p-4 rounded-sm flex items-center gap-3 hover:border-orange-500 cursor-pointer transition group">
+                        <Folder className="text-orange-500 group-hover:text-orange-400" size={20} />
                         <span className="text-slate-300 text-xs uppercase tracking-widest">{folder}</span>
                     </div>
                 ))}
@@ -165,7 +164,7 @@ export const StorageModule: React.FC<StorageProps> = ({ storage, setStorage }) =
                             {sortedStorage.map(file => (
                                 <tr key={file.id} className="hover:bg-slate-800/50 transition group">
                                     <td className="p-4 flex items-center gap-3">
-                                        {file.type === 'Image' ? <ImageIcon className="text-purple-400" size={16} /> : <FileText className="text-blue-400" size={16} />}
+                                        {file.type === 'Image' ? <ImageIcon className="text-purple-400" size={16} /> : <FileText className="text-orange-400" size={16} />}
                                         <span className="text-slate-200">{file.name}</span>
                                     </td>
                                     <td className="p-4 text-slate-400">{file.date}</td>
@@ -173,7 +172,7 @@ export const StorageModule: React.FC<StorageProps> = ({ storage, setStorage }) =
                                     <td className="p-4 text-right flex justify-end gap-2">
                                         <button 
                                             onClick={() => handleDownload(file)}
-                                            className="text-slate-500 hover:text-emerald-400 transition"
+                                            className="text-slate-500 hover:text-orange-400 transition"
                                             title="Download"
                                         >
                                             <Download size={14} />

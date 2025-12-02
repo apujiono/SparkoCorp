@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { InventoryItem, InventoryTransaction, Supplier } from '../types';
 import { analyzeInventorySpec, analyzeStockItem } from '../services/geminiService';
@@ -165,7 +164,7 @@ export const InventoryModule: React.FC<InventoryProps> = ({ inventory, setInvent
                         </div>
                     )}
                     {view === 'Suppliers' && (
-                        <button onClick={() => setShowSupplierModal(true)} className="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-lg text-sm flex items-center gap-2 whitespace-nowrap">
+                        <button onClick={() => setShowSupplierModal(true)} className="bg-purple-600 hover:bg-purple-500 text-white px-4 py-2 rounded-lg text-sm flex items-center gap-2 whitespace-nowrap">
                             <Plus size={16}/> New Supplier
                         </button>
                     )}
@@ -173,7 +172,7 @@ export const InventoryModule: React.FC<InventoryProps> = ({ inventory, setInvent
                         <>
                             <button 
                                 onClick={() => { setShowActionModal({type:'IN', item: inventory[0]}); /* Hacky quick access */}}
-                                className="bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-2 rounded-lg text-xs flex items-center gap-2 whitespace-nowrap border border-slate-600"
+                                className="bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-2 rounded-lg text-xs flex items-center gap-2 whitespace-nowrap border border-slate-600 hover:border-orange-500"
                             >
                                 <ArrowDownLeft size={14} /> Quick Adjust
                             </button>
@@ -208,7 +207,7 @@ export const InventoryModule: React.FC<InventoryProps> = ({ inventory, setInvent
                                     const isLow = item.stock <= item.minStock;
                                     return (
                                     <React.Fragment key={item.id}>
-                                    <tr className={`hover:bg-slate-800/50 transition ${isLow ? 'bg-red-900/10' : ''}`}>
+                                    <tr className={`hover:bg-purple-900/10 transition ${isLow ? 'bg-red-900/10' : ''}`}>
                                         <td className="p-4">
                                             <div className="font-medium text-white flex items-center gap-2">
                                                 {item.name}
@@ -223,11 +222,11 @@ export const InventoryModule: React.FC<InventoryProps> = ({ inventory, setInvent
                                                 {item.category}
                                             </span>
                                         </td>
-                                        <td className="p-4 hidden md:table-cell text-sm text-blue-400">
+                                        <td className="p-4 hidden md:table-cell text-sm text-purple-400">
                                             {supplier ? supplier.name : <span className="text-slate-600 italic">No Link</span>}
                                         </td>
                                         <td className="p-4">
-                                            <div className={`font-bold ${isLow ? 'text-red-500' : 'text-emerald-400'}`}>
+                                            <div className={`font-bold ${isLow ? 'text-red-500' : 'text-orange-400'}`}>
                                                 {item.stock} {item.unit}
                                             </div>
                                             <div className="text-[10px] text-slate-500">Min: {item.minStock}</div>
@@ -270,9 +269,9 @@ export const InventoryModule: React.FC<InventoryProps> = ({ inventory, setInvent
             ) : view === 'Suppliers' ? (
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {suppliers.map(sup => (
-                        <div key={sup.id} className="glass-panel p-6 rounded-xl border border-slate-700 hover:border-blue-500 transition group">
+                        <div key={sup.id} className="glass-panel p-6 rounded-xl border border-slate-700 hover:border-purple-500 transition group">
                             <div className="flex justify-between items-start mb-4">
-                                <div className="p-3 bg-blue-900/20 rounded-lg text-blue-400">
+                                <div className="p-3 bg-purple-900/20 rounded-lg text-purple-400">
                                     <Users size={24}/>
                                 </div>
                                 <span className="bg-slate-800 text-xs px-2 py-1 rounded text-slate-400">{sup.category}</span>
@@ -367,7 +366,7 @@ export const InventoryModule: React.FC<InventoryProps> = ({ inventory, setInvent
                         </div>
                         <div className="flex justify-end gap-3 mt-6">
                             <button onClick={() => setShowSupplierModal(false)} className="text-slate-400">Cancel</button>
-                            <button onClick={handleCreateSupplier} className="bg-blue-600 px-4 py-2 rounded text-white">Register</button>
+                            <button onClick={handleCreateSupplier} className="bg-purple-600 px-4 py-2 rounded text-white">Register</button>
                         </div>
                     </div>
                 </div>
